@@ -1,0 +1,113 @@
+//============================================================================
+// Name        : ClassLINKEDList.cpp
+// Author      : Iftikhar
+// Version     :
+// Copyright   : IFTIIKHAR
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+
+#include <iostream>
+using namespace std;
+class Node {
+private:
+	int data;
+	Node *pNext;
+public:
+	void setdata(int data){
+		this->data = data;
+	}
+	int getdata(){
+		return this->data;
+	}
+	void setNext(Node *pNext){
+		this->pNext = pNext;
+	}
+	Node *getNext(){
+		return this->pNext;
+	}
+
+};
+class List {
+private:
+	Node *headNode;
+	Node *currentNode;
+	int size;
+public:
+	List(){
+		headNode = new Node();
+		headNode->setNext(NULL);
+		currentNode = NULL;
+		size = 0;
+	}
+
+	void add(int data){
+		Node *newNode = new Node();
+		newNode->setdata(data);
+
+		if(currentNode != NULL){
+			newNode->setNext(currentNode->getNext());
+			currentNode->setNext(newNode);
+			currentNode = newNode;
+
+		}else {
+			currentNode = newNode;
+			headNode = newNode;
+		}
+		size++;
+	}
+	void add(int toInsert, int prevValue){
+		currentNode = headNode;
+		while(currentNode->getdata() != prevValue){
+			currentNode = currentNode->getNext();
+		}
+		add(toInsert);
+		while(currentNode != NULL){
+			currentNode = currentNode->getNext();
+		}
+	}
+	void display(){
+		cout<<"Value Of the Node = "<<currentNode->getdata()<<endl;
+		cout<<"Size of the List : " <<size<<endl;
+	}
+	void deleteNode(int x){
+		Node *temp, *del;
+		if(headNode->getdata() == x){
+			del = headNode;
+			headNode = headNode->getNext();
+		}else{
+			temp = headNode;
+			while(temp->getNext()->getdata() != x){
+				temp = temp->getNext();
+			}
+			del = temp->getNext();
+			temp->setNext(del->getNext());
+		}
+		delete del;
+		size--;
+	}
+	void traverse(){
+		currentNode = headNode;
+		while(currentNode != NULL){
+			cout<<currentNode->getdata()<<endl;
+			currentNode = currentNode->getNext();
+		}
+
+	}
+};
+
+int main() {
+	List list;
+	list.add(12);
+	list.add(44);
+	list.add(22);
+	list.add(62);
+	list.add(89);
+	list.add(122);
+	list.deleteNode(12);
+	list.add(112);
+	list.deleteNode(122);
+	cout<<endl;
+	list.traverse();
+}
+
