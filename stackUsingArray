@@ -1,0 +1,53 @@
+//============================================================================
+// Name        : StackusingArray.cpp
+// Author      : Iftikhar uddin
+// Version     : 1.0
+// Copyright   : IFTIIKHAR
+// Description : Stack Implementation Using Array in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+class Stack{
+private:
+	int stackA[200],tos;
+public:
+	Stack(){
+		tos = -1; //Empty Stack
+	}
+	void push(int a){
+		if(tos>200){
+			cout<<"Stack Full"<<endl;
+		}else{
+			stackA[++tos] = a;
+			cout<<a <<" is Successfully Inserted into Stack"<<endl;
+		}
+	}
+	void pop(){
+		if(tos<0){
+			cout<<"Nothing To Delete";
+		}else{
+			cout<<"The Deleted Elements is: "<<stackA[tos--]<<endl;
+		}
+	}
+	void display(){
+		if(tos<0){
+			cout<<"Stack is Empty Boss !"<<endl;
+		}else{
+			for(int i=tos;i>=0;i--){
+				cout<<stackA[i]<<endl;
+			}
+		}
+
+	}
+};
+int main() {
+	Stack stack;
+	stack.push(2);
+	stack.push(3);
+	stack.push(4);
+	stack.pop();
+	stack.display();
+	return 0;
+}
