@@ -1,0 +1,61 @@
+//============================================================================
+// Name        : ListArray.cpp
+// Author      : Iftikhar
+// Version     :
+// Copyright   : IFTIIKHAR
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+class ListArray {
+public:
+
+	ListArray(){
+		length = 0;
+	}
+
+	void insertItem(int item){
+		if(isFull()){
+			return;
+		}
+		info[length] = item;
+		length++;
+	}
+	bool isFull() const{
+		return (length == 10);
+	}
+	void makeEmpty(){
+		length = 0;
+	}
+	void deleteItem(int item){
+		int i;
+		for(i=0; i<10; i++){
+			if( info[i] == item ){
+				info[i] = info [ length -1 ];
+				length--;
+			}
+		}
+	}
+	void display(){
+		int i;
+		for(i=0;i<length;i++){
+			cout<<info[i]<<endl;
+		}
+	}
+private:
+	int length;
+	int info[10];
+};
+int main() {
+	ListArray listArray;
+	listArray.insertItem(2);
+	listArray.insertItem(4);
+	listArray.insertItem(12);
+	listArray.insertItem(5);
+	listArray.deleteItem(12);
+	listArray.makeEmpty();
+	listArray.display();
+	return 0;
+}
