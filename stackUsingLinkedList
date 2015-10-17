@@ -1,0 +1,82 @@
+//============================================================================
+// Name        : StackUsingLinkedList.cpp
+// Author      : Iftikhar
+// Version     :
+// Copyright   : IFTIIKHAR
+// Description : Stack Using Linked List in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+class Node {
+private:
+	int data;
+	Node *pNext;
+public:
+	void setdata(int data){
+		this->data = data;
+	}
+	int getdata(){
+		return this->data;
+	}
+	void setNext(Node *pNext){
+		this->pNext = pNext;
+	}
+	Node *getNext(){
+		return this->pNext;
+	}
+
+};
+class StackList {
+private:
+	Node *headNode;
+	int size;
+public:
+	StackList(){
+		headNode = new Node();
+		headNode->setNext(NULL);
+		size = 0;
+	}
+	int pop(){
+		int x = headNode->getdata();
+		Node *p = headNode;
+		headNode = headNode->getNext();
+		delete p;
+		size--;
+		return x;
+	}
+	void push(int x){
+		Node *newNode = new Node();
+		newNode->setdata(x);
+		newNode->setNext(headNode);
+		headNode = newNode;
+		size++;
+	}
+	int top(){
+		return headNode->getdata();
+	}
+	int isEmpty(){
+		return (headNode == NULL);
+	}
+	void traverse(){
+		int i = 0;
+		while(i != size){
+			cout<<headNode->getdata()<<endl;
+			headNode = headNode->getNext();
+			i++;
+		}
+		cout<<endl;
+	}
+};
+int main() {
+	StackList stack;
+	stack.push(2);
+	stack.push(3);
+	stack.push(10);
+	stack.push(30);
+	stack.push(14);
+	stack.pop();
+	stack.traverse();
+	return 0;
+}
