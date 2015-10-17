@@ -1,0 +1,163 @@
+//============================================================================
+// Name        : DoublyLinkedList.cpp
+// Author      : Iftikhar uddin
+// Version     :
+// Copyright   : IFTIIKHAR
+// Description : Doubly Linked List in C++, Ansi-style
+//============================================================================
+
+
+#include <iostream>
+using namespace std;
+class Node {
+private:
+	int data;
+	Node *pNext;
+	Node *pPrev;
+public:
+	void setdata(int data){
+		this->data = data;
+	}
+	int getdata(){
+		return this->data;
+	}
+	void setNext(Node *pNext){
+		this->pNext = pNext;
+	}
+	Node *getNext(){
+		return this->pNext;
+	}
+	void setPrev(Node *pPrev){
+		this->pPrev = pPrev;
+	}
+	Node *getPrev(){
+		return this->pPrev;
+	}
+};
+class List {
+private:
+	Node *headNode;
+	Node *currentNode;
+	Node *lastCurrentNode;
+	Node *last;
+	int size;
+public:
+	List(){
+		headNode = new Node();
+		headNode->setNext(NULL);
+		currentNode = NULL;
+		lastCurrentNode = NULL;
+		size = 0;
+		last = NULL;
+	}
+
+	void add(int data){
+		Node *newNode = new Node();
+		newNode->setdata(data);
+		if(currentNode != NULL){
+			newNode->setNext(currentNode->getNext());
+			newNode->setPrev(currentNode);
+			currentNode->setNext(newNode);
+			lastCurrentNode = currentNode;
+			currentNode = newNode;
+		}else {
+			currentNode = newNode;
+			headNode = newNode;
+		}
+		size++;
+	}
+	void addAfter(int toInsert, int prevValue){
+		currentNode = headNode;
+		while(currentNode->getdata() != prevValue){
+			currentNode = currentNode->getNext();
+		}
+		add(toInsert);
+		while(currentNode != NULL){
+			currentNode = currentNode->getNext();
+		}
+	}
+	void display(){
+		cout<<"Value Of the Node = "<<currentNode->getdata()<<endl;
+		cout<<"Size of the List : " <<size<<endl;
+	}
+	void deleteNode(int x){
+		Node *temp, *del;
+		if(headNode->getdata() == x){
+			del = headNode;
+			headNode = headNode->getNext();
+			headNode->setPrev(del->getPrev());
+		}else{
+
+			temp = headNode;
+			while(temp->getNext()->getdata() != x){
+				temp = temp->getNext();
+			}
+			if(temp->getNext()->getNext() == NULL){
+						del = temp->getNext();
+						temp->setNext(NULL);
+						last = temp;
+			}else{
+				del = temp->getNext();
+				temp->setNext(del->getNext());
+				(del->getNext())->setPrev(del->getPrev());
+			}
+		}
+		delete del;
+		size--;
+	}
+	void traverse(){
+		currentNode = headNode;
+		while(currentNode != NULL){
+			cout<<currentNode->getdata()<<endl;
+			currentNode = currentNode->getNext();
+		}
+
+	}
+	void reverse(){
+		currentNode = last;
+			while(currentNode != headNode){
+				cout<<currentNode->getdata()<<endl;
+				currentNode = currentNode->getPrev();
+			}
+			cout<<currentNode->getdata(); // When The CurrentNode == headNode Print HeadNode value too
+		}
+	void start(){
+		currentNode = headNode;
+	}
+
+	int length(){
+		return size;
+	}
+	bool next(){
+		if (currentNode == NULL)
+			return false;
+		lastCurrentNode = currentNode;
+		currentNode = currentNode->getNext();
+		if(currentNode == NULL || size == 0)
+			return false;
+		else
+			return true;
+	}
+};
+
+int main() {
+	List list;
+	list.add(12);
+	list.add(33);
+	list.add(22);
+	list.add(42);
+	list.add(732);
+	list.add(220);
+	list.add(145);
+	list.add(66);
+	list.deleteNode(66);
+	list.deleteNode(12);
+	list.deleteNode(42);
+	list.addAfter(701,732);
+	list.traverse();
+	cout<<endl;
+	cout<<endl;
+	list.reverse();
+
+}
+
