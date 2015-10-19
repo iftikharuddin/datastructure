@@ -1,0 +1,53 @@
+//============================================================================
+// Name        : QueViaArray.cpp
+// Author      : Iftikhar uddin
+// Version     :
+// Copyright   : IFTIKHAR
+// Description : Que via Array in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+class Queue {
+private:
+	int data[10],rear,front;
+
+public:
+	Queue(){
+		rear = front = -1;
+	}
+
+	void insert(int x){
+		if(rear>10){
+			cout<<"Queue Fulled Baby: "<<endl;
+		}else{
+			data[++rear] = x;
+			cout<<"Successfully Inserted: "<<x<<endl;
+		}
+	}
+	void delVal(){
+		if(front == rear){
+			cout<<"The Queue is Empty"<<endl;
+		}
+		cout<<"Successfully Deleted : "<<data[++front]<<endl;
+	}
+	void display(){
+		if(front==rear){
+			cout<<"Que is empty ! ";
+		}else {
+			for(int i = front + 1;i<=rear;i++){
+				cout<<data[i]<<endl;
+			}
+		}
+	}
+};
+int main() {
+	Queue que;
+	que.insert(2);
+	que.insert(3);
+	que.insert(4);
+	que.delVal();
+	que.display();
+	return 0;
+}
