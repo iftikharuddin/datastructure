@@ -1,0 +1,76 @@
+//============================================================================
+// Name        : QueViaLinkedList.cpp
+// Author      : Iftikhar uddin
+// Version     :
+// Copyright   : IFTIKHAR
+// Description : Que Implementation via Linked List in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+using namespace std;
+
+class Node{
+private:
+	int data;
+	Node *pNext;
+public:
+	void setdata(int data){
+		this->data = data;
+	}
+	int getdata(){
+		return this->data;
+	}
+	void setNext(Node *pNext){
+		this->pNext = pNext;
+	}
+	Node *getNext(){
+		return this->pNext;
+	}
+};
+class QueList{
+private:
+	Node *front;
+	Node *rear;
+	int size;
+public:
+	QueList(){
+		front = NULL;
+		rear = NULL;
+		size = 0;
+	}
+	void Enqueue(int data){
+		Node *newRear = new Node();
+		newRear->setdata(data);
+		if(front != NULL && rear != NULL) {
+			newRear->setNext(NULL);
+			rear->setNext(newRear);
+			rear = newRear;
+		}else {
+			front = newRear;
+			rear = newRear;
+			newRear->setNext(NULL);
+		}
+		size++;
+	}
+	void Dequeue(){
+		Node *temp = front;
+		if(front != NULL){
+			front = front->getNext();
+		}else{
+			return;
+		}
+		delete temp;
+	}
+	void traverse(){
+				cout<<front->getdata()<<endl;
+				cout<<front->getNext()->getdata()<<endl;
+		}
+};
+int main() {
+	QueList que;
+	que.Enqueue(2);
+	que.Enqueue(12);
+	que.Dequeue();
+	que.traverse();
+	return 0;
+}
